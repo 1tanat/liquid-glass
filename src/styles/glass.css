@@ -1,0 +1,77 @@
+/* Liquid Glass effect (Apple-style) + shader-like refraction */
+.liquid-glass {
+  --glass-blur: 24px;
+  --glass-saturate: 150%;
+  --glass-bg: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.28);
+  --glass-highlight: rgba(255, 255, 255, 0.4);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+  /* Chromatic edge (шейдероподобная хроматическая кайма) */
+  --glass-chroma-c: rgba(180, 200, 255, 0.15);
+  --glass-chroma-w: rgba(255, 220, 200, 0.12);
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+
+  /* Блики по краям + лёгкая хроматическая кайма как в шейдере */
+  box-shadow:
+    inset 1px 1px 0 0 var(--glass-highlight),
+    inset -1px -1px 0 0 var(--glass-chroma-c),
+    0 0 0 1px var(--glass-chroma-w),
+    0 4px 24px var(--glass-shadow);
+
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    border-color 0.2s ease;
+}
+
+.liquid-glass:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow:
+    inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
+    inset -1px -1px 0 0 rgba(180, 200, 255, 0.2),
+    0 0 0 1px rgba(255, 220, 200, 0.18),
+    0 8px 32px rgba(0, 0, 0, 0.14);
+  transform: scale(1.02);
+}
+
+.liquid-glass:active {
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* Sortable: при перетаскивании отключаем transition и делаем призрак видимым */
+.sortable-ghost {
+  opacity: 0.35;
+  transition: none !important;
+  pointer-events: none;
+}
+.sortable-ghost.liquid-glass {
+  transform: none;
+}
+
+.sortable-chosen.liquid-glass {
+  transition: none;
+  cursor: grabbing;
+}
+.sortable-chosen.liquid-glass:hover {
+  transform: none;
+}
+
+.sortable-drag {
+  opacity: 1;
+  transition: none !important;
+  cursor: grabbing;
+  z-index: 1000;
+}
+.sortable-drag.liquid-glass {
+  transform: scale(1.03);
+  box-shadow:
+    inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
+    0 12px 40px rgba(0, 0, 0, 0.2);
+}
