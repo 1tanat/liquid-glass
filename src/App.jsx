@@ -1,7 +1,7 @@
-import Dashboard from "./components/Dashboard";
+import GlassDemo from "./components/GlassDemo";
 
 function App() {
-  return <Dashboard />;
+  return <GlassDemo />;
 }
 
 export default App;

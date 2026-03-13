@@ -2,16 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+.glass-demo {
   background-image: url("/src/assets/background.jpg");
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
 h1 {
   color: white;
-  opacity: 0.8;
-  font-size: 20px;
+  opacity: 0.9;
+  font-size: 1.35rem;
   font-weight: 600;
   font-family: "Poppins", sans-serif;
+  text-align: center;
 }

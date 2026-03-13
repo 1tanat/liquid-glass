@@ -1,23 +1,23 @@
-/* Liquid Glass effect (Apple-style) + shader-like refraction */
+.glass-layer .liquid-glass {
+  --glass-bg: transparent;
+}
+
 .liquid-glass {
-  --glass-blur: 24px;
   --glass-saturate: 150%;
-  --glass-bg: rgba(255, 255, 255, 0.14);
-  --glass-border: rgba(255, 255, 255, 0.28);
-  --glass-highlight: rgba(255, 255, 255, 0.4);
-  --glass-shadow: rgba(0, 0, 0, 0.1);
-  /* Chromatic edge (шейдероподобная хроматическая кайма) */
-  --glass-chroma-c: rgba(180, 200, 255, 0.15);
-  --glass-chroma-w: rgba(255, 220, 200, 0.12);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.16);
+  --glass-shadow: rgba(0, 0, 0, 0.05);
+  --glass-chroma-c: rgba(180, 200, 255, 0.06);
+  --glass-chroma-w: rgba(255, 220, 200, 0.05);
 
   background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: saturate(var(--glass-saturate));
+  -webkit-backdrop-filter: saturate(var(--glass-saturate));
 
   border: 1px solid var(--glass-border);
   border-radius: 20px;
 
-  /* Блики по краям + лёгкая хроматическая кайма как в шейдере */
   box-shadow:
     inset 1px 1px 0 0 var(--glass-highlight),
     inset -1px -1px 0 0 var(--glass-chroma-c),
@@ -31,21 +31,18 @@
 }
 
 .liquid-glass:hover {
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.2);
   box-shadow:
-    inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
-    inset -1px -1px 0 0 rgba(180, 200, 255, 0.2),
-    0 0 0 1px rgba(255, 220, 200, 0.18),
-    0 8px 32px rgba(0, 0, 0, 0.14);
-  transform: scale(1.02);
+    inset 1px 1px 0 0 rgba(255, 255, 255, 0.22),
+    inset -1px -1px 0 0 rgba(180, 200, 255, 0.1),
+    0 0 0 1px rgba(255, 220, 200, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .liquid-glass:active {
-  transform: scale(0.98);
   transition-duration: 0.1s;
 }
 
-/* Sortable: при перетаскивании отключаем transition и делаем призрак видимым */
 .sortable-ghost {
   opacity: 0.35;
   transition: none !important;
@@ -70,8 +67,7 @@
   z-index: 1000;
 }
 .sortable-drag.liquid-glass {
-  transform: scale(1.03);
   box-shadow:
-    inset 1px 1px 0 0 rgba(255, 255, 255, 0.5),
-    0 12px 40px rgba(0, 0, 0, 0.2);
+    inset 1px 1px 0 0 rgba(255, 255, 255, 0.22),
+    0 12px 40px rgba(0, 0, 0, 0.12);
 }
